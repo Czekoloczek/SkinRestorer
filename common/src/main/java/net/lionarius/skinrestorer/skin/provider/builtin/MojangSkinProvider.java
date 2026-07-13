@@ -1,8 +1,7 @@
 package net.lionarius.skinrestorer.skin.provider.builtin;
 
 import com.mojang.authlib.*;
-import com.mojang.authlib.yggdrasil.YggdrasilEnvironment;
-import com.mojang.authlib.yggdrasil.response.NameAndId;
+import com.mojang.authlib.services.response.NameAndId;
 import net.lionarius.skinrestorer.SkinRestorer;
 import net.lionarius.skinrestorer.config.provider.CacheConfig;
 import net.lionarius.skinrestorer.exception.TransparentException;
@@ -12,30 +11,19 @@ import net.minecraft.server.players.CachedUserNameToIdResolver;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Optional;
 import java.util.UUID;
 
 public final class MojangSkinProvider extends YggdrasilSkinProvider {
     public static final String PROVIDER_NAME = "mojang";
     public static final String PROFILE_CACHE_FILENAME = "mojang_profile_cache.json";
-    private static final Environment ENVIRONMENT;
-    private static final URI SERVICES_SERVER_URI;
-    private static final URI SESSION_SERVER_URI;
+    // Minecraft 26.3's authlib replaced Environment#servicesHost / #sessionHost with runtime service
+    // discovery. We target Mojang's stable public production hosts directly, which is what the previous
+    // YggdrasilEnvironment.PROD environment resolved to.
+    private static final URI SERVICES_SERVER_URI = URI.create("https://api.minecraftservices.com");
+    private static final URI SESSION_SERVER_URI = URI.create("https://sessionserver.mojang.com");
 
     private final CachedUserNameToIdResolver profileCache;
-
-    static {
-        try {
-            ENVIRONMENT =
-                    EnvironmentParser.getEnvironmentFromProperties().orElse(YggdrasilEnvironment.PROD.getEnvironment());
-
-            SERVICES_SERVER_URI = new URI(ENVIRONMENT.servicesHost());
-            SESSION_SERVER_URI = new URI(ENVIRONMENT.sessionHost());
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
 
     public MojangSkinProvider() {
         this.profileCache = new CachedUserNameToIdResolver(

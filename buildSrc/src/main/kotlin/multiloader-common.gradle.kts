@@ -108,6 +108,7 @@ tasks.processResources {
             "java_version" to project.property("java_version"),
             // Loader-specific
             "fabric_loader_version" to (project.findProperty("fabric_loader_version") ?: ""),
+            "fabric_minecraft_dependency" to (project.findProperty("fabric_minecraft_dependency") ?: ""),
             "forge_version" to (project.findProperty("forge_version") ?: ""),
             "forge_loader_version_range" to (project.findProperty("forge_loader_version_range") ?: ""),
             "neoforge_version" to (project.findProperty("neoforge_version") ?: ""),

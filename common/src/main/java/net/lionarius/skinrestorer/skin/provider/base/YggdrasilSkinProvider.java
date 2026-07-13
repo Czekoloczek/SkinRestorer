@@ -1,8 +1,8 @@
 package net.lionarius.skinrestorer.skin.provider.base;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.yggdrasil.response.MinecraftProfilePropertiesResponse;
-import com.mojang.authlib.yggdrasil.response.NameAndId;
+import com.mojang.authlib.services.response.MinecraftProfilePropertiesResponse;
+import com.mojang.authlib.services.response.NameAndId;
 import com.mojang.util.UndashedUuid;
 import net.lionarius.skinrestorer.util.JsonUtils;
 import net.lionarius.skinrestorer.util.WebUtils;

@@ -64,5 +64,8 @@ rootProject.name = "skin-restorer"
 
 include("common")
 include("fabric")
-include("forge")
-include("neoforge")
+// Forge and NeoForge have no Minecraft 26.3 build yet, and their latest 26.2 builds ship an older,
+// incompatible authlib (9.x, com.mojang.authlib.yggdrasil.*) that cannot compile the 26.3 sources
+// (10.x, com.mojang.authlib.services.*). Re-enable these once upstream publishes 26.3.
+// include("forge")
+// include("neoforge")
